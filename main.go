@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io/ioutil"
 	"os"
 )
 
@@ -20,7 +19,6 @@ func editFile(filename string) {
 			break
 		}
 
-		// Check for save command
 		if line == "SAVE\n" {
 			break
 		}
@@ -28,8 +26,7 @@ func editFile(filename string) {
 		lines = append(lines, line)
 	}
 
-	// Save the edited content back to the file
-	err := ioutil.WriteFile(filename, []byte(fmt.Sprint(lines)), 0644)
+	err := os.WriteFile(filename, []byte(fmt.Sprint(lines)), 0644)
 	if err != nil {
 		fmt.Println("Error writing to file:", err)
 		return
@@ -47,16 +44,12 @@ func main() {
 	filename := os.Args[1]
 	fmt.Printf("Editing file: %s\n", filename)
 
-	// Read the file content
-	content, err := ioutil.ReadFile(filename)
+	content, err := os.ReadFile(filename)
 	if err != nil {
 		fmt.Println("Error reading file:", err)
 		os.Exit(1)
 	}
 
-	// Display the content
 	fmt.Printf("\nContents of %s:\n%s\n", filename, content)
-
-	// Start editing (placeholder)
 	editFile(filename)
 }

@@ -6,12 +6,10 @@ import (
 	"os"
 )
 
-// FileEditor is a struct to manage file operations.
 type FileEditor struct {
 	Filename string
 }
 
-// Load reads the content of the file.
 func (fe *FileEditor) Load() (*string, error) {
 	content, err := os.ReadFile(fe.Filename)
 	if err != nil {
@@ -21,12 +19,10 @@ func (fe *FileEditor) Load() (*string, error) {
 	return &contentStr, nil
 }
 
-// Save writes the provided content to the file.
 func (fe *FileEditor) Save(content *string) error {
 	return os.WriteFile(fe.Filename, []byte(*content), 0644)
 }
 
-// Edit handles the editing process interactively.
 func (fe *FileEditor) Edit() error {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Println("Type your text below (type 'SAVE' to save and exit):")
